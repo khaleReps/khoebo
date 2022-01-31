@@ -1,0 +1,235 @@
+{% load static %}
+<!--
+=========================================================
+* * Black Dashboard - v1.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/black-dashboard
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      {% block head %}
+      {% block meta %}
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="apple-touch-icon" sizes="76x76" href="/static/stocks/img/apple-icon.png">
+      <link rel="icon" type="image/png" href="/static/stocks/img/favicon.png">
+      {% endblock meta %}
+
+      <title>Chelete | {% block title %}{% endblock title %}</title>
+
+      {% block stylesheets %}
+      <!--     Fonts and icons     -->
+      <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+      <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+      <!-- Nucleo Icons -->
+      <link href="/static/stocks/css/nucleo-icons.css" rel="stylesheet" />
+      <!-- CSS Files -->
+      <link href="/static/stocks/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+      <link href="/static/stocks/css/black-dashboard.css" rel="stylesheet" />
+      
+      {% endblock stylesheets %}
+      <!-- Custom Theme Style -->
+      <link href="/static/stocks/css/chelete.css" rel="stylesheet" />
+    {% endblock head %}
+
+</head>
+
+<body class="white-content">
+
+        {% block body %}
+        <div class="wrapper">
+            <div class="main_container">
+    
+              {% block sidebar %}
+                <!-- <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}"> -->
+                  {% include "stocks/sidebar.html" %}
+                <!-- </div> -->
+              {% endblock sidebar %}
+    
+              {% block top_navigation %}
+                <div class="top_nav">
+                  {% include "stocks/top_navigation.html" %}
+                </div>
+              {% endblock top_navigation %}
+  
+   
+    
+      <!-- Navbar -->
+      
+      <!-- End Navbar -->
+      
+        
+      {% block content %}
+      <!-- {{ content }} -->
+      {% endblock content %}
+     
+        
+      </div>
+      {% block footer %}
+         {% include "stocks/footer.html" %}
+      {% endblock footer %}
+    </div>
+  </div>
+  
+  {% block javascripts %}
+  <!--   Core JS Files   -->
+  <script src="/static/stocks/js/core/jquery.min.js"></script>
+  <script src="/static/stocks/js/core/popper.min.js"></script>
+  <script src="/static/stocks/js/core/bootstrap.min.js"></script>
+  <script src="/static/stocks/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="/static/stocks/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="/static/stocks/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="/static/stocks/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/static/stocks/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+        $navbar = $('.navbar');
+        $main_panel = $('.main-panel');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+        sidebar_mini_active = true;
+        white_color = false;
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+
+
+        $('.fixed-plugin a').click(function(event) {
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .background-color span').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data', new_color);
+          }
+
+          if ($main_panel.length != 0) {
+            $main_panel.attr('data', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data', new_color);
+          }
+        });
+
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            sidebar_mini_active = false;
+            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+          } else {
+            $('body').addClass('sidebar-mini');
+            sidebar_mini_active = true;
+            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+          }
+
+          // we simulate the window Resize so the charts will get updated in realtime.
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          // we stop the simulation of Window Resize after the animations are completed
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+        });
+
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (white_color == true) {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').removeClass('white-content');
+            }, 900);
+            white_color = false;
+          } else {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').addClass('white-content');
+            }, 900);
+
+            white_color = true;
+          }
+
+
+        });
+
+        $('.light-badge').click(function() {
+          $('body').addClass('white-content');
+        });
+
+        $('.dark-badge').click(function() {
+          $('body').removeClass('white-content');
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS &&
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "black-dashboard-free"
+      });
+  </script>
+
+    {% endblock %}
+    <!-- Custom Theme Scripts -->
+    <script src="/static/stocks/chelete.js"></script>
+    {% endblock body %}
+</body>
+
+</html>

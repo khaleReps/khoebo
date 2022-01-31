@@ -1,0 +1,323 @@
+{% extends "stocks/base.html" %}
+
+{% block title %} Stock {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="main-panel" style="border-top: 2px solid #2871f5;">
+<div class="content">
+    <div class="row">  
+      <div class="col-8">
+        <div class="card-body">
+          <h4> {{ meta.name }}  ({{ ticker }})</h4>
+        </div>
+
+        <div class="card-body">
+          <div class="tick-text" class="typography-line">
+            <!-- <h1 class="display-1 ticket-1" >13 403.50 <span>USD</span></h1> -->
+            
+            <h1 class="display-1 ticket-1" >{{ price.close }}</h1>
+
+          </div>
+          <div class="tick-text">
+            <h2>+1009.28(+7.53%)</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <div class="card ">
+          <div class="card-header">
+            <h4 class="card-title"> Information</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table tablesorter " id="">
+                <thead class=" text-primary">
+                  <tr>
+                    <th>
+                      <!-- Name -->
+                    </th>
+                    <th>
+                      <!-- Country -->
+                    </th>
+                    <!-- <th>
+                      City
+                    </th> -->
+                    <!-- <th class="text-center">
+                      Salary
+                    </th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Open
+                    </td>
+                    <td>
+                      {{ price.open }}
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                      High
+                    </td>
+                    <td>
+                      {{ price.high }}
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                    Low
+                    </td>
+                    <td>
+                      {{ price.low }}
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                      Close
+                    </td>
+                    <td>
+                      {{ price.close }}
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                    % Change
+                    </td>
+                    <td>
+                      {{ price.change }}
+                    </td>
+                    
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-8">  
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Summary</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Chart</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Statistics</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Profile</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Financial</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Analysis</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Settings</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active py-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h1>{{ meta.name }} ({{ ticker }})</h1>
+            <p>{{meta.description}} </p>
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-chart" data="blue">
+                    <div class="card-header ">
+                      <div class="row">
+                        <div class="col-sm-6 text-left">
+                          <h5 class="card-category">WDLB100 </h5>
+                          <h2 class="card-title">Performance</h2>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                            <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                              <input type="radio" name="options" checked>
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">1d</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-single-02"></i>
+                              </span>
+                            </label>
+                            <label class="btn btn-sm btn-primary btn-simple" id="1">
+                              <input type="radio" class="d-none d-sm-none" name="options">
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">5d</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-gift-2"></i>
+                              </span>
+                            </label>
+                            <label class="btn btn-sm btn-primary btn-simple" id="2">
+                              <input type="radio" class="d-none" name="options">
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">2w</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-tap-02"></i>
+                              </span>
+                            </label>
+                            <label class="btn btn-sm btn-primary btn-simple" id="3">
+                              <input type="radio" class="d-none" name="options">
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">1m</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-tap-02"></i>
+                              </span>
+                            </label>
+                            <label class="btn btn-sm btn-primary btn-simple" id="4">
+                              <input type="radio" class="d-none" name="options">
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">6m</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-tap-02"></i>
+                              </span>
+                            </label>
+                            <label class="btn btn-sm btn-primary btn-simple" id="5">
+                              <input type="radio" class="d-none" name="options">
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">1y</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-tap-02"></i>
+                              </span>
+                            </label>
+                            <label class="btn btn-sm btn-primary btn-simple" id="5">
+                              <input type="radio" class="d-none" name="options">
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">5y</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-tap-02"></i>
+                              </span>
+                            </label>
+                            <label class="btn btn-sm btn-primary btn-simple" id="5">
+                              <input type="radio" class="d-none" name="options">
+                              <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">max</span>
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-tap-02"></i>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="chartBig1"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <div class="card ">
+          <div class="card-header">
+            <h4 class="card-title"> Market Order</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table tablesorter " id="">
+                <thead class=" text-primary">
+                  <tr>
+                    <th>
+                      <!-- Name -->
+                    </th>
+                    <th>
+                      <!-- Country -->
+                    </th>
+                    <!-- <th>
+                      City
+                    </th> -->
+                    <!-- <th class="text-center">
+                      Salary
+                    </th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                     Shares
+                    </td>
+                    <td>
+                     
+                     
+                      
+                          <input type="number" class="form-control" placeholder="0">
+                    
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                      Market Price
+                    </td>
+                    <td>
+                      12 3403.50 USD
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                    Commisions 
+                    </td>
+                    <td>
+                      0,00 USD
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                      Estimated Cost
+                    </td>
+                    <td>
+                      0,00 USD
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-outline-primary col-12">Buy Shares</button>
+                      <!-- <button class="btn-xl btn-fill btn-primary">Buy Shares</button> -->
+                    </td>
+                    <td>
+                     
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">
+                      <h6 class="text-center"><a href="#">Trade Options</a></h6>
+                    </td>
+                    <td>
+                    
+                    </td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock content %}
